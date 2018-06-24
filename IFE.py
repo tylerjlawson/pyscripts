@@ -6,7 +6,6 @@ from PIL import Image
 
 def get_date_taken(path):
 	''' helper function to get exif date of an image '''
-	print(Image.open(path)._getexif())
 	try:
 		returner = Image.open(path)._getexif()[306]
 	except KeyError:
