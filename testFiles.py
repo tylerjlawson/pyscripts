@@ -8,12 +8,12 @@ def touch(fname, times=None):
         fhandle.close()
 
 def create():
-	os.makedirs('~/Documents/test')
+	os.makedirs('/home/tyler/Documents/test')
 	n = 2000
 	for i in range(4):
-		os.makedirs('~/Documents/test/'+str(i+n))
+		os.makedirs('/home/tyler/Documents/test/'+str(i+n))
 		for j in range(4):
-			touch('~/Documents/test/'+str(i+n)+'/test'+str(j)+'.jpg')
+			touch('/home/tyler/Documents/test/'+str(i+n)+'/test'+str(j)+'.jpg')
 
 def delete():
-	shutil.rmtree('~/Documents/test')
+	shutil.rmtree('/home/tyler/Documents/test')

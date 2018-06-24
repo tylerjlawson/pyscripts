@@ -6,6 +6,7 @@ from PIL import Image
 
 def get_date_taken(path):
 	''' helper function to get exif date of an image '''
+	print(Image.open(path)._getexif())
 	try:
 		returner = Image.open(path)._getexif()[306]
 	except KeyError:
@@ -71,6 +72,13 @@ def rename_by_date(directory):
 	print("Failed to name: " + str(failed))
 	print ("Elapsed time for rename_by_date(): " + str(time.time() - start))
 
+def is_Int(s):
+    try: 
+        int(s)
+        return True
+    except ValueError:
+        return False
+
 def rename_by_parent(directory):
 	''' Takes a folder that contains subfolder groupings, meant to be the year and renames
 		all files in each subfolder grouping and renames and redates it to match its respective
@@ -82,10 +90,10 @@ def rename_by_parent(directory):
 			src = directory + i + '/' + j
 			dst = directory + i + '/' + i + '-' + str(n) + ext
 			os.rename(src,dst)
-			if re.split('- _',s)[0].is_integer():
+			if is_Int(re.split('- _',i)[0]):
 				try:
-					os.system('jhead -ds' + re.split('- _',s)[0] + dst)
+					os.system('jhead -ds' + re.split('- _',i)[0] + ' ' + dst)
 				except:
-					print('Date note changed: '+ re.split('- _',s)[0] + dst)
+					print('Date not changed: '+ re.split('- _',i)[0] + ' ' + dst)
 			n+=1
 
