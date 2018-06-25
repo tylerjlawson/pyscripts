@@ -7,10 +7,10 @@ from PIL import Image
 def get_date_taken(path):
 	''' helper function to get exif date of an image '''
 	try:
-		returner = Image.open(path)._getexif()[306]
+		return Image.open(path)._getexif()[306]
 	except KeyError:
-		returner = Image.open(path)._getexif()[36867]
-	return returner
+		return Image.open(path)._getexif()[36867]
+	
 
 def rename_all (directory, word):
 	''' renames all files in directory to whatever word is given
