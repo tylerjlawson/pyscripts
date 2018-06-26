@@ -82,17 +82,35 @@ def rename_by_parent(directory):
 	''' Takes a folder that contains subfolder groupings, meant to be the year and renames
 		all files in each subfolder grouping and renames and redates it to match its respective
 		folder '''
+	start = time.time()
+	Olength = 0
+
 	for i in os.listdir(directory):
 		n=0
-		for j in os.listdir(str(directory+i)):
-			ext = '.' + j.split('.')[-1]
-			src = directory + i + '/' + j
-			dst = directory + i + '/' + i + '-' + str(n) + ext
-			os.rename(src,dst)
-			if is_Int(re.split('- _',i)[0]):
-				try:
-					os.system('jhead -ds' + re.split('- _',i)[0] + ' ' + dst)
-				except:
-					print('Date not changed: '+ re.split('- _',i)[0] + ' ' + dst)
-			n+=1
+		if not i == '.DS_Store':
+			Olength += len(os.listdir(directory+i))
+			for j in os.listdir(str(directory+i)):
+				if not j == '.DS_Store':
+					ext = '.' + j.split('.')[-1]
+					src = directory + i + '/' + j
+					dst = directory + i + '/' + i + '-' + str(n) + ext
+					os.rename(src,dst)
+					if is_Int(i.split('-')[0]):
+						os.system('touch -t ' + i.split('-')[0] + '01010000 ' + dst)
+					n+=1
+
+	endlength = 0
+	for i in os.listdir(directory):
+		if not i == '.DS_Store':
+			endlength += len(os.listdir(directory+i))
+			os.system('mv ' + directory + i + '/*g ' + directory)
+			try:
+				l = os.listdir(directory+i)
+				os.system('rm -R ' + directory + i)
+			except: 
+				pass
+
+	print ("Elapsed time for rename_by_date(): " + str(time.time() - start))
+	print("Images lost: " + str(Olength - endlength))
+	print("Total images changed: " + str(endlength))
 
