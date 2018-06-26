@@ -86,7 +86,7 @@ def rename_by_parent(directory):
 	Olength = 0
 	for i in [x for x in os.listdir(directory) if x != '.DS_Store']:
 		n=0
-		Olength += len(os.listdir(directory+i)) - 1
+		Olength += len(os.listdir(directory+i))
 		for j in [x for x in os.listdir(str(directory+)) if x != '.DS_Store']:
 			ext = '.' + j.split('.')[-1]
 			src = directory + i + '/' + j
