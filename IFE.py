@@ -84,33 +84,26 @@ def rename_by_parent(directory):
 		folder '''
 	start = time.time()
 	Olength = 0
-
-	for i in os.listdir(directory):
+	for i in [x for x in os.listdir(directory) if x != '.DS_Store']:
 		n=0
-		if not i == '.DS_Store':
-			Olength += len(os.listdir(directory+i))
-			for j in os.listdir(str(directory+i)):
-				if not j == '.DS_Store':
-					ext = '.' + j.split('.')[-1]
-					src = directory + i + '/' + j
-					dst = directory + i + '/' + i + '-' + str(n) + ext
-					os.rename(src,dst)
-					if is_Int(i.split('-')[0]):
-						os.system('touch -t ' + i.split('-')[0] + '01010000 ' + dst)
-					n+=1
+		Olength += len(os.listdir(directory+i)) - 1
+		for j in [x for x in os.listdir(str(directory+)) if x != '.DS_Store']:
+			ext = '.' + j.split('.')[-1]
+			src = directory + i + '/' + j
+			dst = directory + i + '/' + i + '-' + str(n) + ext
+			os.rename(src,dst)                                 # set name to date
+			if is_Int(i.split('-')[0]):                        # change date
+				os.system('touch -t ' + i.split('-')[0] + '01010000 ' + dst)
+			n+=1
 
-	endlength = 0
-	for i in os.listdir(directory):
-		if not i == '.DS_Store':
-			endlength += len(os.listdir(directory+i))
-			os.system('mv ' + directory + i + '/*g ' + directory)
-			try:
-				l = os.listdir(directory+i)
-				os.system('rm -R ' + directory + i)
-			except: 
-				pass
+	for i in [x for x in os.listdir(directory) if x != '.DS_Store']:    
+		os.system('mv ' + directory + i + '/*g ' + directory) # moves all image files (png jpg jpeg)
+		try:
+			l = os.listdir(directory+i)                        # only remove if is a folder
+			os.system('rm -R ' + directory + i)
+		except: 
+			pass
 
+	print("Images lost: " + str(Olength - len(os.listdir(directory))))
+	print("Total images changed: " +str(Olength - len(os.listdir(directory))))
 	print ("Elapsed time for rename_by_date(): " + str(time.time() - start))
-	print("Images lost: " + str(Olength - endlength))
-	print("Total images changed: " + str(endlength))
-

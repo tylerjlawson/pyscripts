@@ -1,7 +1,7 @@
 import os, shutil
 
 def touch(fname, times=None):
-    fhandle = open(fname, 'a')
+ 	fhandle = open(fname, 'a')
     try:
         os.utime(fname, times)
     finally:
