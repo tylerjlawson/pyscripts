@@ -83,11 +83,9 @@ def rename_by_parent(directory):
 		all files in each subfolder grouping and renames and redates it to match its respective
 		folder '''
 	start = time.time()
-	Olength = 0
 	for i in [x for x in os.listdir(directory) if x != '.DS_Store']:
-		n=0
-		Olength += len(os.listdir(directory+i))
-		for j in [x for x in os.listdir(str(directory+)) if x != '.DS_Store']:
+		n=1
+		for j in [x for x in os.listdir(str(directory+i)) if x != '.DS_Store']:
 			ext = '.' + j.split('.')[-1]
 			src = directory + i + '/' + j
 			dst = directory + i + '/' + i + '-' + str(n) + ext
@@ -104,6 +102,5 @@ def rename_by_parent(directory):
 		except: 
 			pass
 
-	print("Images lost: " + str(Olength - len(os.listdir(directory))))
-	print("Total images changed: " +str(Olength - len(os.listdir(directory))))
+	print("Total images changed: " + str(len(os.listdir(directory))))
 	print ("Elapsed time for rename_by_date(): " + str(time.time() - start))
