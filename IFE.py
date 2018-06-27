@@ -1,4 +1,4 @@
-import os, PIL, re, exifread, time
+import os, PIL, time
 from PIL import Image
 ''' This is my python module for renaming and redating images
 	This was originally created for expediting the organization 
@@ -72,6 +72,7 @@ def rename_by_date(directory):
 	print ("Elapsed time for rename_by_date(): " + str(time.time() - start))
 
 def is_Int(s):
+	''' Helper to tell if data type is an int '''
     try: 
         int(s)
         return True
@@ -91,7 +92,8 @@ def rename_by_parent(directory):
 			dst = directory + i + '/' + i + '-' + str(n) + ext
 			os.rename(src,dst)                                 # set name to date
 			if is_Int(i.split('-')[0]):                        # change date
-				os.system('touch -t ' + i.split('-')[0] + '01010000 ' + dst)
+				os.system('touch -t ' + i.split('-')[0] + '01010000 ' + dst)  # date is set to folder year
+																			  # and january 1st at 00:00
 			n+=1
 
 	for i in [x for x in os.listdir(directory) if x != '.DS_Store']:    
