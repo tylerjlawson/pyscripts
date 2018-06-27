@@ -104,5 +104,5 @@ def rename_by_parent(directory):
 
 	print("Total images changed: " + str(len(os.listdir(directory))))
 	print ("Elapsed time for rename_by_date(): " + str(time.time() - start))
+	print ("Elapsed time for rename_by_date(): " + str(time.time() - start))
 
-	'''''hello''''
