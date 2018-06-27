@@ -73,11 +73,11 @@ def rename_by_date(directory):
 
 def is_Int(s):
 	''' Helper to tell if data type is an int '''
-    try: 
-        int(s)
-        return True
-    except ValueError:
-        return False
+	try: 
+	  int(s)
+	  return True
+	except ValueError:
+	  return False
 
 def rename_by_parent(directory):
 	''' Takes a folder that contains subfolder groupings, meant to be the year and renames
@@ -105,6 +105,5 @@ def rename_by_parent(directory):
 			pass
 
 	print("Total images changed: " + str(len(os.listdir(directory))))
-	print ("Elapsed time for rename_by_date(): " + str(time.time() - start))
 	print ("Elapsed time for rename_by_date(): " + str(time.time() - start))
 
