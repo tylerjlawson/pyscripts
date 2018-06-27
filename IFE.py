@@ -52,7 +52,7 @@ def rename_by_date(directory):
 					os.rename(src,dst)
 					repeats_dict[key] += 1
 					n = repeats_dict[key]
-					fileName = newName.split('.')[0] + '-' + str(n) + ext
+					fileName = newName.split('.')[0] + '_' + str(n) + ext
 					dst  = directory + fileName
 					src = save
 					os.rename(src,dst)
