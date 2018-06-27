@@ -7,10 +7,10 @@ from PIL import Image
 def get_date_taken(path):
 	''' helper function to get exif date of an image '''
 	try:
-		returner = Image.open(path)._getexif()[306]
+		return Image.open(path)._getexif()[306]
 	except KeyError:
-		returner = Image.open(path)._getexif()[36867]
-	return returner
+		return Image.open(path)._getexif()[36867]
+	
 
 def rename_all (directory, word):
 	''' renames all files in directory to whatever word is given
@@ -82,17 +82,25 @@ def rename_by_parent(directory):
 	''' Takes a folder that contains subfolder groupings, meant to be the year and renames
 		all files in each subfolder grouping and renames and redates it to match its respective
 		folder '''
-	for i in os.listdir(directory):
-		n=0
-		for j in os.listdir(str(directory+i)):
+	start = time.time()
+	for i in [x for x in os.listdir(directory) if x != '.DS_Store']:
+		n=1
+		for j in [x for x in os.listdir(str(directory+i)) if x != '.DS_Store']:
 			ext = '.' + j.split('.')[-1]
 			src = directory + i + '/' + j
 			dst = directory + i + '/' + i + '-' + str(n) + ext
-			os.rename(src,dst)
-			if is_Int(re.split('- _',i)[0]):
-				try:
-					os.system('jhead -ds' + re.split('- _',i)[0] + ' ' + dst)
-				except:
-					print('Date not changed: '+ re.split('- _',i)[0] + ' ' + dst)
+			os.rename(src,dst)                                 # set name to date
+			if is_Int(i.split('-')[0]):                        # change date
+				os.system('touch -t ' + i.split('-')[0] + '01010000 ' + dst)
 			n+=1
 
+	for i in [x for x in os.listdir(directory) if x != '.DS_Store']:    
+		os.system('mv ' + directory + i + '/*g ' + directory) # moves all image files (png jpg jpeg)
+		try:
+			l = os.listdir(directory+i)                        # only remove if is a folder
+			os.system('rm -R ' + directory + i)
+		except: 
+			pass
+
+	print("Total images changed: " + str(len(os.listdir(directory))))
+	print ("Elapsed time for rename_by_date(): " + str(time.time() - start))
