@@ -107,3 +107,13 @@ def rename_by_parent(directory):
 	print("Total images changed: " + str(len(os.listdir(directory))))
 	print ("Elapsed time for rename_by_date(): " + str(time.time() - start))
 
+def rename_fix (directory):
+	''' ran rename date on a directory meant to be renamed by 
+		rename by parent and this was the fix used '''
+	i = 0
+	for file in [x for x in os.listdir(directory) if x != '.DS_Store']:
+		l = file.split('.')
+		print(l)
+		src = directory + file
+		dst = directory + l[1] + '.' + l[2]
+		os.rename(src,dst)
