@@ -117,3 +117,14 @@ def rename_fix (directory):
 		src = directory + file
 		dst = directory + l[1] + '.' + l[2]
 		os.rename(src,dst)
+
+def list_directory_by_length(directory):
+	''' lists all files renamed by parent '''
+	l = [x for x in os.listdir(directory) if len(x) <=12]
+	newL = sorted(l, key=len)
+	# this part when uncommented will open all files in this list
+	# for i in newL:                        
+	# 	os.system("open " + str(directory+i))
+	print newL
+
+list_directory_by_length('/Users/tyler/Documents/dated/')
