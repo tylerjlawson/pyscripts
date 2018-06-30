@@ -126,5 +126,3 @@ def list_directory_by_length(directory):
 	# for i in newL:                        
 	# 	os.system("open " + str(directory+i))
 	print newL
-
-list_directory_by_length('/Users/tyler/Documents/dated/')
