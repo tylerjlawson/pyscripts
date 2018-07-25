@@ -44,7 +44,7 @@ def rename_by_date(directory):
 			key = newName.split('.')[0]
 			try:
 				n = repeats_dict[key]
-				fileName = newName.split('.')[0] + '_' + str(n) + ext
+				fileName = newName.split('.')[0] + '-' + str(n) + ext
 				if n == 1:
 					save = src
 					src = dst
@@ -52,7 +52,7 @@ def rename_by_date(directory):
 					os.rename(src,dst)
 					repeats_dict[key] += 1
 					n = repeats_dict[key]
-					fileName = newName.split('.')[0] + '_' + str(n) + ext
+					fileName = newName.split('.')[0] + '-' + str(n) + ext
 					dst  = directory + fileName
 					src = save
 					os.rename(src,dst)
@@ -92,8 +92,10 @@ def rename_by_parent(directory):
 			dst = directory + i + '/' + i + '-' + str(n) + ext
 			os.rename(src,dst)                                 # set name to date
 			if is_Int(i.split('-')[0]):                        # change date
-				os.system('touch -t ' + i.split('-')[0] + '01010000 ' + dst)  # date is set to folder year
-																			  # and january 1st at 00:00
+				os.system('touch -t ' + i.split('-')[0] + '01012000 ' + dst)  # date is set to folder year
+																			  # and january 1st 
+			else: # Other Fam case
+				os.system('touch -t ' + '1990' + '01012000 ' + dst)
 			n+=1
 
 	for i in [x for x in os.listdir(directory) if x != '.DS_Store']:    
