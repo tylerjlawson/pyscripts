@@ -1,0 +1,11 @@
+#! /usr/bin/python
+
+import sys
+from IFE import *
+from pathlib import Path
+
+num_args = len(sys.argv) - 1
+
+if num_args == 1:
+    dirr = str(Path.cwd()) + sys.argv[1]
+    rename_by_parent(dirr)   

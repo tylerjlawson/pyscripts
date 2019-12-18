@@ -85,7 +85,7 @@ def rename_by_parent(directory):
 		folder '''
 	start = time.time()
 	for i in [x for x in os.listdir(directory) if x != '.DS_Store']:
-		n=1
+		n = 1
 		for j in [x for x in os.listdir(str(directory+i)) if x != '.DS_Store']:
 			ext = '.' + j.split('.')[-1]
 			src = directory + i + '/' + j
@@ -107,12 +107,11 @@ def rename_by_parent(directory):
 			pass
 
 	print("Total images changed: " + str(len(os.listdir(directory))))
-	print ("Elapsed time for rename_by_date(): " + str(time.time() - start))
+	print ("Elapsed time for rename_by_parent(): " + str(time.time() - start))
 
 def rename_fix (directory):
 	''' ran rename date on a directory meant to be renamed by 
 		rename by parent and this was the fix used '''
-	i = 0
 	for file in [x for x in os.listdir(directory) if x != '.DS_Store']:
 		l = file.split('.')
 		print(l)
